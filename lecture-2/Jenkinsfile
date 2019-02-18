@@ -1,0 +1,44 @@
+pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr:'10'))
+        disableConcurrentBuilds()
+    }
+    triggers {
+        pollSCM('*/5 * * * *')
+    }
+    agent {
+
+    }
+    stages {
+        stage('Package') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
+            steps {
+                echo 'Packaging'
+                //sh 'mvn package'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing'
+                //sh 'mvn test'
+            }
+        }
+        stage('Run') {
+            steps {
+                echo 'Running'
+                //sh 'java -jar target/SecondEE-1.0-SNAPSHOT.jar'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'success'
+        }
+        failed {
+            echo 'failed'
+        }
+    }
+}
