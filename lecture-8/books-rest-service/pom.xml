@@ -8,10 +8,11 @@
         <version>2.1.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>edu.ee</groupId>
-    <artifactId>lecture-6</artifactId>
+    <artifactId>books-rest-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lecture-6</name>
+    <name>lecture-8-books-rest-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
