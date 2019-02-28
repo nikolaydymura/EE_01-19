@@ -1,0 +1,26 @@
+package edu.ee.models.inheritance3;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity(name = "Rectangle3")
+public class Rectangle extends Shape {
+  private int width;
+  private int height;
+
+  public int getWidth() {
+    return width;
+  }
+
+  public void setWidth(int width) {
+    this.width = width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public void setHeight(int height) {
+    this.height = height;
+  }
+}

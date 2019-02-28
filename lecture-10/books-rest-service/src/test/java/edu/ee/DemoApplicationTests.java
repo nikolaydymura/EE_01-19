@@ -4,10 +4,9 @@ import edu.ee.controllers.BookController;
 import edu.ee.dto.BookDTO;
 import edu.ee.models.BookEntity;
 import edu.ee.models.UserEntity;
-import edu.ee.repositories.BookRepository;
-import edu.ee.repositories.Magazine;
-import edu.ee.repositories.MagazineRepository;
-import edu.ee.repositories.Publisher;
+import edu.ee.models.inheritance1.Shape;
+import edu.ee.models.inheritance4.ShapePoint;
+import edu.ee.repositories.*;
 import edu.ee.services.BookService;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -47,6 +46,17 @@ public class DemoApplicationTests {
   @Autowired
   private MagazineRepository magazineRepository;
 
+  @Autowired
+  private ShapeRepository2 shapeRepository2;
+
+
+  @Autowired
+  private ShapeRepository3 shapeRepository3;
+
+
+  @Autowired
+  private ShapeRepository4 shapeRepository4;
+
   @Test
   public void testBookGetById() throws Exception {
     BookDTO bookDTO = new BookDTO();
@@ -62,7 +72,7 @@ public class DemoApplicationTests {
             .getBook(10);
     Mockito.verifyNoMoreInteractions(bookService);
 
-    Assert.assertEquals(book.getId(), 10);
+    Assert.assertEquals(book.getId() , 10);
   }
 
   @Test
@@ -106,7 +116,7 @@ public class DemoApplicationTests {
 
     BookEntity jessica = bookRepository.findBookEntityByTitle("Jessica");
 
-    Assert.assertEquals(jessica.getId(), bookEntity1.getId());
+    Assert.assertEquals(jessica.getId() , bookEntity1.getId());
   }
 
   @Test
@@ -129,6 +139,32 @@ public class DemoApplicationTests {
     publisher.setName("HIRE");
     mabeline.setPublisher(publisher);
     magazineRepository.save(mabeline);
+  }
+
+  @Test
+  public void checkShape2() throws Exception {
+    edu.ee.models.inheritance2.Shape r = new edu.ee.models.inheritance2.Rectangle();
+    edu.ee.models.inheritance2.Shape c = new edu.ee.models.inheritance2.Circle();
+    shapeRepository2.save(r);
+    shapeRepository2.save(c);
+  }
+
+  @Test
+  public void checkShape3() throws Exception {
+    edu.ee.models.inheritance3.Shape r = new edu.ee.models.inheritance3.Rectangle();
+    edu.ee.models.inheritance3.Shape c = new edu.ee.models.inheritance3.Circle();
+    shapeRepository3.save(r);
+    shapeRepository3.save(c);
+  }
+
+  @Test
+  public void checkShape4() throws Exception {
+    edu.ee.models.inheritance4.Shape r = new edu.ee.models.inheritance4.Rectangle();
+    edu.ee.models.inheritance4.Shape c = new edu.ee.models.inheritance4.Circle();
+    r.setPoint(new ShapePoint());
+    c.setPoint(new ShapePoint());
+    shapeRepository4.save(r);
+    shapeRepository4.save(c);
   }
 }
 

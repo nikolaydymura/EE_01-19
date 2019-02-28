@@ -7,8 +7,6 @@ import java.util.Set;
 @Entity
 public class UserEntity {
 
-  public static final UserEntity NONE = new UserEntity();
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
