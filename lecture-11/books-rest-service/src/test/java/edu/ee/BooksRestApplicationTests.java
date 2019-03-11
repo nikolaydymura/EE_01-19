@@ -1,5 +1,7 @@
 package edu.ee;
 
+import edu.ee.aspects.AspectsService;
+import edu.ee.aspects.TargetService;
 import edu.ee.controllers.BookController;
 import edu.ee.dto.BookDTO;
 import edu.ee.models.BookEntity;
@@ -36,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DemoApplicationTests {
+public class BooksRestApplicationTests {
 
   @MockBean
   private BookService bookService;
@@ -56,6 +58,12 @@ public class DemoApplicationTests {
   @PersistenceContext
   private EntityManager defaultManager;
 
+  @Autowired
+  private AspectsService aspectsService;
+
+  @Autowired
+  private TargetService targetService;
+
   @Test
   public void testBookGetById() throws Exception {
     BookDTO bookDTO = new BookDTO();
@@ -71,7 +79,7 @@ public class DemoApplicationTests {
             .getBook(10);
     Mockito.verifyNoMoreInteractions(bookService);
 
-    Assert.assertEquals(book.getId() , 10);
+    Assert.assertEquals(book.getId(), 10);
   }
 
   @Test
@@ -97,6 +105,7 @@ public class DemoApplicationTests {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.tit", Matchers.is("Big Elephant")));
   }
+
   @Test
   public void checkDatabase() throws Exception {
     BookEntity bookEntity1 = new BookEntity();
@@ -115,7 +124,7 @@ public class DemoApplicationTests {
 
     BookEntity jessica = bookRepository.findBookEntityByTitle("Jessica");
 
-    Assert.assertEquals(jessica.getId() , bookEntity1.getId());
+    Assert.assertEquals(jessica.getId(), bookEntity1.getId());
   }
 
   @Test
@@ -164,6 +173,21 @@ public class DemoApplicationTests {
     Pageable p;
 
 
+  }
+
+  @Test
+  public void beforeDoSomething() {
+    targetService.doSomething();
+    targetService.doSomething1();
+    try {
+      long aLong = targetService.doSomething2(100);
+      Assert.assertEquals( aLong, 100 + 200);
+      targetService.doSomething4(100);
+      targetService.doSomething2(-1);
+      targetService.doSomething4(-1);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
 

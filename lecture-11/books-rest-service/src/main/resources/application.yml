@@ -1,0 +1,17 @@
+server:
+  port: 0
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  application:
+    name: books-rest-service
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
