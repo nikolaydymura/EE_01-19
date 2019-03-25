@@ -1,0 +1,11 @@
+server:
+  port: 9091
+security:
+  oauth2:
+    client:
+      client-id: kpi
+      client-secret: kpicesret
+      scope: read
+      access-token-uri: http://localhost:8081/oauth/token
+    resource:
+      user-info-uri: http://localhost:8081/me
